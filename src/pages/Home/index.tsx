@@ -20,7 +20,7 @@ const Home = () => {
           />
         </div>
         <div className="flex justify-center mb-[40px]">
-          <button className="bg-[#01494F] text-white w-full  max-w-[350px] py-6 px-20 mt-[132px] ">
+          <button className="bg-[#01494F] text-white w-full  max-w-[350px] py-6 px-20 mt-[132px] hover:opacity-80 transition duration-300 ease-out">
             Proceed to Check in
           </button>
         </div>
