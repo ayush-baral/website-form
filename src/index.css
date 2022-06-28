@@ -9,6 +9,11 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
+input[type="date"]::-webkit-datetime-edit {
+  padding: 0 14px;
+  color: #00000080;
+}
+
 @layer components {
   .background-image {
     background-image: url("./assets/home.png");
