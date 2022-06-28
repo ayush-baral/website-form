@@ -1,4 +1,5 @@
 import React from "react";
+import Form from "../../components/Form";
 import WelcomeScreen from "../../components/WelcomeScreen";
 
 const Home = () => {
@@ -8,7 +9,7 @@ const Home = () => {
       {toggleWelcomeScreen ? (
         <WelcomeScreen setToggleWelcomeScreen={setToggleWelcomeScreen} />
       ) : (
-        ""
+        <Form />
       )}
     </>
   );
