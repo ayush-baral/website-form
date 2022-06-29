@@ -3,7 +3,7 @@ import React from "react";
 const Button: React.FC<{
   text: string;
   onClick?: any;
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "delete";
   className?: string;
   type: "button" | "submit";
 }> = ({ text, onClick, variant = "primary", className, type }) => {
@@ -13,7 +13,9 @@ const Button: React.FC<{
       className={`py-[10px] px-[18px] rounded-lg ${
         variant === "primary"
           ? "bg-primary text-white"
-          : "bg-secondary text-black"
+          : variant === "secondary"
+          ? "bg-secondary text-black"
+          : variant === "delete" && "bg-red-500 text-white"
       } ${className}`}
       type={type}
     >
