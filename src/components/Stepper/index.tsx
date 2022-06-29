@@ -5,7 +5,6 @@ const Stepper: React.FC<{ currentStep: number; totalSteps: number }> = ({
   totalSteps,
 }) => {
   const width = `${(currentStep / totalSteps) * 100}`;
-  console.log(width);
 
   return (
     <>
@@ -15,7 +14,10 @@ const Stepper: React.FC<{ currentStep: number; totalSteps: number }> = ({
       <div
         className={`w-full h-2 bg-[#E8EAEC] relative rounded-lg overflow-hidden`}
       >
-        <div className={`w-[${width}%] h-[100%] bg-primary z-10`} />
+        <div
+          className={`h-[100%] bg-primary z-10`}
+          style={{ width: `${width}%` }}
+        />
       </div>
     </>
   );
