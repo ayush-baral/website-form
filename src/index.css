@@ -10,7 +10,6 @@ body {
 }
 
 input[type="date"]::-webkit-datetime-edit {
-  padding: 0 14px;
   color: #00000080;
 }
 
