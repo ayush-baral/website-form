@@ -6,7 +6,7 @@ import Stepper from "../Stepper";
 import Layout from "../Layout";
 import axios from "axios";
 import { FormDataInterface } from "../../typing";
-import Spinner from "../Button/Spinner/Spinner";
+import Spinner from "../Spinner/Spinner";
 
 interface FormInterface {
   loading: boolean;
@@ -28,7 +28,7 @@ const Form = () => {
       setFormData({ ...formData, loading: true });
       try {
         const { data } = await axios.get(
-          "https://19ee-27-34-48-60.ngrok.io/v1/registration/hotel/91c3e12d-ecd4-4cb0-a545-ca8c693d70f8/steps?fbclid=IwAR0MLwXdmvEWpaUyHp75UsSW5albrRRnwK72KnUu14pwk8Yotr6AjOg0ob0"
+          "https://5642-2400-1a00-bde0-2ee7-6521-8f8-dbd7-743f.ngrok.io/v1/registration/hotel/91c3e12d-ecd4-4cb0-a545-ca8c693d70f8/steps?fbclid=IwAR0MLwXdmvEWpaUyHp75UsSW5albrRRnwK72KnUu14pwk8Yotr6AjOg0ob0"
         );
         setFormData({ loading: false, error: "", data });
         setTotalSteps(data.length);
@@ -42,11 +42,16 @@ const Form = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid, isSubmitting },
   } = useForm({ reValidateMode: "onChange", mode: "onChange" });
 
   const onSubmit = (data: any) => {
-    setCurrentStep((prev) => prev + 1);
+    if (currentStep < totalSteps - 1) {
+      setCurrentStep((prev) => prev + 1);
+      return;
+    }
+
+    console.log("data", data);
   };
 
   if (formData?.loading) {
@@ -103,7 +108,6 @@ const Form = () => {
                           required: required && "This field is required",
                         })}
                         type={input_type}
-                        name={name}
                         placeholder={placeholder}
                         className="border border-[#C2C9D1] w-full px-4 py-[10px]  rounded-lg mb-2"
                       />
@@ -149,7 +153,13 @@ const Form = () => {
                   onClick={() => setCurrentStep((prev) => prev - 1)}
                 />
               )}
-              <Button text="Next" type="submit" className="mb-8" />
+              <Button
+                text={currentStep === totalSteps - 1 ? "Submit" : "Next"}
+                type="submit"
+                className="mb-8"
+                // disabled={!isValid}
+                loading={isSubmitting}
+              />
             </div>
           </form>
         </>

@@ -1,4 +1,5 @@
 import React from "react";
+import Layout from "../Layout";
 
 const DUMMY_DATA = { name: "Hotel Mountain View" };
 
@@ -6,10 +7,10 @@ const WelcomeScreen: React.FC<{
   setToggleWelcomeScreen: (toggleWelcomeScreen: boolean) => void;
 }> = ({ setToggleWelcomeScreen }) => {
   return (
-    <>
-      <div className="h-[60vh] overflow-hidden pt-[50px]">
+    <div className="relative h-screen w-full overflow-hidden">
+      <div className="overflow-hidden pt-[50px] h-full w-full">
         {/* Heading starts */}
-        <h1 className="font-medium text-xl text-center">
+        <h1 className="font-medium text-xl text-center text-white">
           Welcome to {DUMMY_DATA.name}
         </h1>
 
@@ -30,8 +31,15 @@ const WelcomeScreen: React.FC<{
           </button>
         </div>
       </div>
-      <div className="background-image h-[40vh] object-fill max-w-[400px] mx-auto"></div>
-    </>
+      <div className="absolute bg-black top-0 left-0 opacity-30 h-full w-full z-[-1]" />
+      <div className="absolute top-0 left-0 h-full z-[-2] w-full">
+        <img
+          src="https://source.unsplash.com/random/800x600"
+          alt="hotel"
+          className="h-full w-full object-cover"
+        />
+      </div>
+    </div>
   );
 };
 
