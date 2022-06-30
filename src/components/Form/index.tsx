@@ -7,6 +7,7 @@ import Layout from "../Layout";
 import axios from "axios";
 import { FormDataInterface } from "../../typing";
 import Spinner from "../Spinner/Spinner";
+import SuccessScreen from "../SuccessScreen";
 
 interface FormInterface {
   loading: boolean;
@@ -15,6 +16,7 @@ interface FormInterface {
 }
 
 const Form = () => {
+  const [showSuccessScreen, setShowSuccessScreen] = useState(true);
   const [formData, setFormData] = useState<FormInterface>({
     loading: false,
     error: "",
@@ -60,6 +62,10 @@ const Form = () => {
         <Spinner />
       </div>
     );
+  }
+
+  if (showSuccessScreen) {
+    return <SuccessScreen />;
   }
 
   return (
