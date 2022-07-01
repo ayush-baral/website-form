@@ -8,6 +8,7 @@ import axios from "axios";
 import { FormDataInterface } from "../../typing";
 import Spinner from "../Spinner/Spinner";
 import SuccessScreen from "../SuccessScreen";
+import { axiosInstance } from "../../utils/axiosInterceptors";
 
 interface FormInterface {
   loading: boolean;
@@ -16,7 +17,7 @@ interface FormInterface {
 }
 
 const Form = () => {
-  const [showSuccessScreen, setShowSuccessScreen] = useState(true);
+  const [showSuccessScreen, setShowSuccessScreen] = useState(false);
   const [formData, setFormData] = useState<FormInterface>({
     loading: false,
     error: "",
@@ -29,8 +30,8 @@ const Form = () => {
     const getData = async () => {
       setFormData({ ...formData, loading: true });
       try {
-        const { data } = await axios.get(
-          "https://5642-2400-1a00-bde0-2ee7-6521-8f8-dbd7-743f.ngrok.io/v1/registration/hotel/91c3e12d-ecd4-4cb0-a545-ca8c693d70f8/steps?fbclid=IwAR0MLwXdmvEWpaUyHp75UsSW5albrRRnwK72KnUu14pwk8Yotr6AjOg0ob0"
+        const { data } = await axiosInstance.get(
+          "/v1/registration/hotel/91c3e12d-ecd4-4cb0-a545-ca8c693d70f8/steps?fbclid=IwAR0MLwXdmvEWpaUyHp75UsSW5albrRRnwK72KnUu14pwk8Yotr6AjOg0ob0"
         );
         setFormData({ loading: false, error: "", data });
         setTotalSteps(data.length);
@@ -148,8 +149,7 @@ const Form = () => {
                 );
               }
             )}
-
-            <div className="flex  justify-between">
+            <div className="flex  justify-end gap- gap-x-44">
               {currentStep > 0 && (
                 <Button
                   text="prev"
