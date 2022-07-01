@@ -30,7 +30,7 @@ const WelcomeScreen: React.FC<{
         <div className="mt-14 w-[120px] h-[120px] bg-[#D9D9D9] rounded-full mx-auto overflow-hidden">
           <img src={logo} alt="hotel" className="h-full w-full object-cover" />
         </div>
-        <div className="flex justify-center mb-[40px]">
+        <div className="flex justify-center mt-[120px]">
           <button
             className="bg-[#01494F] text-white w-full  max-w-[350px] py-6 px-20 mt-[132px] hover:opacity-80 transition duration-300 ease-out"
             onClick={() => setToggleWelcomeScreen(false)}
