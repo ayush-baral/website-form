@@ -8,6 +8,7 @@ import { FormDataInterface } from "../../typing";
 import Spinner from "../Spinner/Spinner";
 import SuccessScreen from "../SuccessScreen";
 import { axiosInstance } from "../../utils/axiosInterceptors";
+import toast from "react-hot-toast";
 
 interface FormInterface {
   loading: boolean;
@@ -52,11 +53,21 @@ const Form: React.FC<{}> = () => {
       setCurrentStep((prev) => prev + 1);
       return;
     }
-
-    await axiosInstance.post(
-      "/v1/registration/hotel/91c3e12d-ecd4-4cb0-a545-ca8c693d70f8/submit",
-      data
-    );
+    try {
+      toast.loading("Submitting...", { duration: 3000 });
+      await axiosInstance.post(
+        "/v1/registration/hotel/91c3e12d-ecd4-4cb0-a545-ca8c693d70f8/submit",
+        data
+      );
+      setShowSuccessScreen(true);
+      toast.dismiss();
+      toast.success("Successfully submitted", { duration: 3000 });
+    } catch (e: any) {
+      toast.dismiss();
+      toast.error(e?.response?.data?.message || "Error posting data", {
+        duration: 3000,
+      });
+    }
   };
 
   if (formData?.loading) {
