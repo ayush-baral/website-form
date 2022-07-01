@@ -1,18 +1,12 @@
-import React from "react";
-import Form from "../../components/Form";
-import WelcomeScreen from "../../components/WelcomeScreen";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const [toggleWelcomeScreen, setToggleWelcomeScreen] = React.useState(true);
-  return (
-    <>
-      {toggleWelcomeScreen ? (
-        <WelcomeScreen setToggleWelcomeScreen={setToggleWelcomeScreen} />
-      ) : (
-        <Form />
-      )}
-    </>
-  );
+  const navigate = useNavigate();
+  useEffect(() => {
+    navigate(-1);
+  }, [navigate]);
+  return <></>;
 };
 
 export default Home;

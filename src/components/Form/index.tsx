@@ -4,7 +4,6 @@ import Button from "../Button";
 import ErrorMessage from "../ErrorMessage";
 import Stepper from "../Stepper";
 import Layout from "../Layout";
-import axios from "axios";
 import { FormDataInterface } from "../../typing";
 import Spinner from "../Spinner/Spinner";
 import SuccessScreen from "../SuccessScreen";
@@ -16,7 +15,7 @@ interface FormInterface {
   data: FormDataInterface[] | [];
 }
 
-const Form = () => {
+const Form: React.FC<{}> = () => {
   const [showSuccessScreen, setShowSuccessScreen] = useState(false);
   const [formData, setFormData] = useState<FormInterface>({
     loading: false,
