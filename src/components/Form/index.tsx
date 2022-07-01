@@ -86,13 +86,14 @@ const Form: React.FC<{}> = () => {
     <Layout>
       <div className=" pt-8 sticky top-0 left-0 bg-white">
         <Stepper currentStep={currentStep + 1} totalSteps={totalSteps} />
-        <hr className="border-t border-[#C4C4C4] mt-11" />
+
+        <h2 className="font-semibold text-xl pt-5 ">
+          {formData?.data[currentStep]?.name}
+        </h2>
+        <hr className="border-t border-[#C4C4C4] mt-5" />
       </div>
       <div className="mt-5">
         <>
-          <h2 className="font-semibold text-xl pt-5 ">
-            {formData?.data[currentStep]?.name}
-          </h2>
           <p className="text-[14px]">
             {formData?.data[currentStep]?.description}
           </p>
