@@ -5,22 +5,30 @@ const DUMMY_DATA = { name: "Hotel Mountain View" };
 
 const WelcomeScreen: React.FC<{
   setToggleWelcomeScreen: (toggleWelcomeScreen: boolean) => void;
-}> = ({ setToggleWelcomeScreen }) => {
+  logo: string;
+  welcome_background_image: string;
+  welcome_text: string;
+}> = ({
+  setToggleWelcomeScreen,
+  welcome_text,
+  welcome_background_image,
+  logo,
+}) => {
+  console.log("welcome_text", welcome_text);
+  console.log("welcome_background_image", welcome_background_image);
+  console.log("logo", logo);
+
   return (
     <div className="relative h-screen w-full overflow-hidden">
       <div className="overflow-hidden pt-[50px] h-full w-full">
         {/* Heading starts */}
         <h1 className="font-medium text-xl text-center text-white">
-          Welcome to {DUMMY_DATA.name}
+          {welcome_text}
         </h1>
 
         {/* Image Container Starts */}
         <div className="mt-14 w-[120px] h-[120px] bg-[#D9D9D9] rounded-full mx-auto overflow-hidden">
-          <img
-            src="https://source.unsplash.com/random/800x600"
-            alt="hotel"
-            className="h-full w-full object-cover"
-          />
+          <img src={logo} alt="hotel" className="h-full w-full object-cover" />
         </div>
         <div className="flex justify-center mb-[40px]">
           <button
@@ -34,7 +42,7 @@ const WelcomeScreen: React.FC<{
       <div className="absolute bg-black top-0 left-0 opacity-30 h-full w-full z-[-1]" />
       <div className="absolute top-0 left-0 h-full z-[-2] w-full">
         <img
-          src="https://source.unsplash.com/random/800x600"
+          src={welcome_background_image}
           alt="hotel"
           className="h-full w-full object-cover"
         />

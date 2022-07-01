@@ -1,6 +1,7 @@
 import React from "react";
 import Facebook from "../../assets/facebook.png";
 import Instagram from "../../assets/instagram.png";
+import { FaTripadvisor } from "react-icons/fa";
 
 import Layout from "../Layout";
 
@@ -20,6 +21,14 @@ const SuccessScreen = () => {
       <div className="mt-[150px] mb-20">
         <h3 className="text-xl font-medium text-center mb-5">Follow us:</h3>
         <div className="flex justify-center gap-x-4">
+          <a
+            rel="noreferrer"
+            href="https://www.tripadvisor.com"
+            target={"_blank"}
+            className="bg-[#6a45be00] text-[40px] text-green-500 "
+          >
+            <FaTripadvisor />
+          </a>
           <a
             href="https://www.facebook.com"
             rel="noreferrer"

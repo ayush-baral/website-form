@@ -12,3 +12,15 @@ interface InputField {
   placeholder?: string;
   options?: string[];
 }
+
+export interface HotelInfo {
+  welcome_text: string;
+  logo: string;
+  welcome_background_image: string;
+  social_links: SocialLink[];
+}
+
+interface SocialLink {
+  name: string;
+  link: string;
+}

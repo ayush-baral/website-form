@@ -31,7 +31,7 @@ const Form: React.FC<{}> = () => {
       setFormData({ ...formData, loading: true });
       try {
         const { data } = await axiosInstance.get(
-          "/v1/registration/hotel/91c3e12d-ecd4-4cb0-a545-ca8c693d70f8/steps?fbclid=IwAR0MLwXdmvEWpaUyHp75UsSW5albrRRnwK72KnUu14pwk8Yotr6AjOg0ob0"
+          "/v1/registration/hotel/91c3e12d-ecd4-4cb0-a545-ca8c693d70f8/steps"
         );
         setFormData({ loading: false, error: "", data });
         setTotalSteps(data.length);
