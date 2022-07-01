@@ -35,7 +35,7 @@ const Form: React.FC<{}> = () => {
         setFormData({ loading: false, error: "", data });
         setTotalSteps(data.length);
       } catch (e: any) {
-        console.log("e", e);
+        console.log("e", e?.response?.data);
       }
     };
     getData();
@@ -47,13 +47,16 @@ const Form: React.FC<{}> = () => {
     formState: { errors, isValid, isSubmitting },
   } = useForm({ reValidateMode: "onChange", mode: "onChange" });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = async (data: any) => {
     if (currentStep < totalSteps - 1) {
       setCurrentStep((prev) => prev + 1);
       return;
     }
 
-    console.log("data", data);
+    await axiosInstance.post(
+      "/v1/registration/hotel/91c3e12d-ecd4-4cb0-a545-ca8c693d70f8/submit",
+      data
+    );
   };
 
   if (formData?.loading) {

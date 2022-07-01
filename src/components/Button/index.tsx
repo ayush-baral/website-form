@@ -29,9 +29,9 @@ const Button: React.FC<{
           : variant === "delete" && "bg-red-500 text-white"
       } ${className}`}
       type={type}
-      disabled={disabled}
+      disabled={disabled || loading}
     >
-      {loading ? <Spinner /> : text}
+      {loading ? "Loading..." : text}
     </button>
   );
 };
