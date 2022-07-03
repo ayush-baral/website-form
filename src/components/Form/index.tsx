@@ -23,6 +23,7 @@ const Form: React.FC<{}> = () => {
     error: "",
     data: [],
   });
+  const [submittingValues, setSubmittingValues] = useState({});
   const [currentStep, setCurrentStep] = useState(0);
   const [totalSteps, setTotalSteps] = useState(0);
 
@@ -45,19 +46,21 @@ const Form: React.FC<{}> = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid, isSubmitting },
+    reset,
+    formState: { errors, isSubmitting },
   } = useForm({ reValidateMode: "onChange", mode: "onChange" });
 
   const onSubmit = async (data: any) => {
     if (currentStep < totalSteps - 1) {
       setCurrentStep((prev) => prev + 1);
+      setSubmittingValues({ ...submittingValues, ...data });
       return;
     }
     try {
       toast.loading("Submitting...", { duration: 3000 });
       await axiosInstance.post(
         "/v1/registration/hotel/91c3e12d-ecd4-4cb0-a545-ca8c693d70f8/submit",
-        data
+        { ...submittingValues, ...data }
       );
       setShowSuccessScreen(true);
       toast.dismiss();
@@ -165,13 +168,14 @@ const Form: React.FC<{}> = () => {
             )}
             <div className="flex  justify-end gap- gap-x-44">
               {currentStep > 0 && (
-                <Button
-                  text="prev"
-                  type="button"
-                  className="mb-8"
-                  variant="secondary"
-                  onClick={() => setCurrentStep((prev) => prev - 1)}
-                />
+                // <Button
+                //   text="prev"
+                //   type="button"
+                //   className="mb-8"
+                //   variant="secondary"
+                //   onClick={() => setCurrentStep((prev) => prev - 1)}
+                // />
+                <></>
               )}
               <Button
                 text={currentStep === totalSteps - 1 ? "Submit" : "Next"}
