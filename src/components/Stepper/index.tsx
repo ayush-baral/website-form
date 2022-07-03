@@ -9,7 +9,7 @@ const Stepper: React.FC<{ currentStep: number; totalSteps: number }> = ({
   return (
     <>
       <h2 className="text-right">
-        step {currentStep}/ {totalSteps}
+        Step {currentStep}/{totalSteps}
       </h2>
       <div
         className={`w-full h-2 bg-[#E8EAEC] relative rounded-lg overflow-hidden`}
