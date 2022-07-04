@@ -9,6 +9,7 @@ import Spinner from "../Spinner/Spinner";
 import SuccessScreen from "../SuccessScreen";
 import { axiosInstance } from "../../utils/axiosInterceptors";
 import toast from "react-hot-toast";
+import { useParams } from "react-router-dom";
 
 interface FormInterface {
   loading: boolean;
@@ -27,12 +28,15 @@ const Form: React.FC<{}> = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [totalSteps, setTotalSteps] = useState(0);
 
+  const params = useParams();
+  const hotelId = params.id;
+
   useEffect(() => {
     const getData = async () => {
       setFormData({ ...formData, loading: true });
       try {
         const { data } = await axiosInstance.get(
-          "/v1/registration/hotel/91c3e12d-ecd4-4cb0-a545-ca8c693d70f8/steps"
+          `/v1/registration/hotel/${hotelId}/steps`
         );
         setFormData({ loading: false, error: "", data });
         setTotalSteps(data.length);
@@ -41,7 +45,8 @@ const Form: React.FC<{}> = () => {
       }
     };
     getData();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hotelId]);
 
   const {
     register,
@@ -54,14 +59,15 @@ const Form: React.FC<{}> = () => {
     if (currentStep < totalSteps - 1) {
       setCurrentStep((prev) => prev + 1);
       setSubmittingValues({ ...submittingValues, ...data });
+      reset();
       return;
     }
     try {
-      toast.loading("Submitting...", { duration: 3000 });
-      await axiosInstance.post(
-        "/v1/registration/hotel/91c3e12d-ecd4-4cb0-a545-ca8c693d70f8/submit",
-        { ...submittingValues, ...data }
-      );
+      toast.loading("Submitting...");
+      await axiosInstance.post(`/v1/registration/hotel/${hotelId}/submit`, {
+        ...submittingValues,
+        ...data,
+      });
       setShowSuccessScreen(true);
       toast.dismiss();
       toast.success("Successfully submitted", { duration: 3000 });
