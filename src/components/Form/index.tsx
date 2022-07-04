@@ -27,6 +27,7 @@ const Form: React.FC<{}> = () => {
   const [submittingValues, setSubmittingValues] = useState({});
   const [currentStep, setCurrentStep] = useState(0);
   const [totalSteps, setTotalSteps] = useState(0);
+  const [buttonClick, setButtonClick] = useState("");
 
   const params = useParams();
   const hotelId = params.id;
@@ -56,26 +57,33 @@ const Form: React.FC<{}> = () => {
   } = useForm({ reValidateMode: "onChange", mode: "onChange" });
 
   const onSubmit = async (data: any) => {
-    if (currentStep < totalSteps - 1) {
-      setCurrentStep((prev) => prev + 1);
+    if (buttonClick === "next") {
+      if (currentStep < totalSteps - 1) {
+        setCurrentStep((prev) => prev + 1);
+        setSubmittingValues({ ...submittingValues, ...data });
+        reset();
+        reset({ ...submittingValues });
+        return;
+      }
+      try {
+        toast.loading("Submitting...");
+        await axiosInstance.post(`/v1/registration/hotel/${hotelId}/submit`, {
+          ...submittingValues,
+          ...data,
+        });
+        setShowSuccessScreen(true);
+        toast.dismiss();
+        toast.success("Successfully submitted", { duration: 3000 });
+      } catch (e: any) {
+        toast.dismiss();
+        toast.error(e?.response?.data?.message || "Error posting data", {
+          duration: 3000,
+        });
+      }
+    } else {
+      setCurrentStep((prev) => prev - 1);
       setSubmittingValues({ ...submittingValues, ...data });
-      reset();
-      return;
-    }
-    try {
-      toast.loading("Submitting...");
-      await axiosInstance.post(`/v1/registration/hotel/${hotelId}/submit`, {
-        ...submittingValues,
-        ...data,
-      });
-      setShowSuccessScreen(true);
-      toast.dismiss();
-      toast.success("Successfully submitted", { duration: 3000 });
-    } catch (e: any) {
-      toast.dismiss();
-      toast.error(e?.response?.data?.message || "Error posting data", {
-        duration: 3000,
-      });
+      reset({ ...submittingValues });
     }
   };
 
@@ -174,19 +182,19 @@ const Form: React.FC<{}> = () => {
             )}
             <div className="flex  justify-end gap- gap-x-44">
               {currentStep > 0 && (
-                // <Button
-                //   text="prev"
-                //   type="button"
-                //   className="mb-8"
-                //   variant="secondary"
-                //   onClick={() => setCurrentStep((prev) => prev - 1)}
-                // />
-                <></>
+                <Button
+                  text="Back"
+                  type="submit"
+                  className="mb-8"
+                  variant="secondary"
+                  onClick={() => setButtonClick("prev")}
+                />
               )}
               <Button
                 text={currentStep === totalSteps - 1 ? "Submit" : "Next"}
                 type="submit"
                 className="mb-8"
+                onClick={() => setButtonClick("next")}
                 // disabled={!isValid}
                 loading={isSubmitting}
               />
